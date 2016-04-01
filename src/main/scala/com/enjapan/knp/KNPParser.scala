@@ -7,7 +7,6 @@ package com.enjapan.knp
 import cats.data.Xor
 import cats.std.list._
 import cats.syntax.traverse._
-import cats.syntax.xor._
 import com.enjapan.juman.JumanParser
 import com.enjapan.knp.models._
 
@@ -31,6 +30,10 @@ object KNPParser {
 
 case class ParseException(msg: String) extends Exception(msg)
 
+/**
+  *
+  * @param breakingPattern
+  */
 class KNPParser(val breakingPattern: Regex = "^EOS$".r) {
 
   def parse(lines: Iterable[String]): Xor[ParseException, BList] = {
@@ -176,7 +179,7 @@ class KNPParser(val breakingPattern: Regex = "^EOS$".r) {
       }
     }, ParseException(s"Illegal KNP node spec: " + l))
 
-    headers.map { case (parentId, dpndtype, fstring)  =>
+    headers.map { case (parentId, dpndtype, fstring) =>
       val (features, rels) = parseFeatures(fstring)
       val paTypes = List.empty ++ features.get("用言").map(Predicate.apply) ++ features.get("体言").map(_ => Argument)
       val pas = features.get("格解析結果").flatMap(parsePAS)

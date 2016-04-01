@@ -11,12 +11,12 @@ case class PredicateArgumentAnalysis(
   relationName: String,
   relationType: String,
   argWord: String,
-  argId:Int,
-  argSentId:String) {
+  argId: Int,
+  argSentId: String) {
 
-  private var _arg:Tag = null
+  private var _arg: Tag = null
 
-  protected[knp] def arg_=(tag:Tag): Unit = {
+  protected[knp] def arg_=(tag: Tag): Unit = {
     _arg = tag
   }
 
@@ -30,16 +30,33 @@ case class Rel(
   mode: Option[String]
 )
 
+/**
+  * Bunsetsu sub division
+  *
+  * @param parentId
+  * @param dpndtype
+  * @param fstring
+  * @param paTypes
+  * @param morphemes
+  * @param features
+  * @param rels
+  * @param pas
+  */
 case class Tag(
-  parentId:Int,
-  dpndtype:String,
-  fstring:String,
-  paTypes:List[PAType],
+  parentId: Int,
+  dpndtype: String,
+  fstring: String,
+  paTypes: List[PAType],
   morphemes: List[Morpheme],
-  features:Map[String,String],
+  features: Map[String, String],
   rels: List[Rel],
-  pas:Option[Pas]) extends KNPNode[Tag] {
+  pas: Option[Pas]) extends KNPNode[Tag] {
 
-  def surface:String = morphemes.map(_.midasi).mkString
+  /**
+    * Builds the written representation of the tag
+    *
+    * @return
+    */
+  def surface: String = morphemes.map(_.midasi).mkString
 
 }

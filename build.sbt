@@ -2,7 +2,7 @@ name := "scala-juman-knp"
 description := "Scala wrapper around JUMAN and KNP."
 organization := "com.enjapan"
 
-scalaVersion := "2.11.7"
+scalaVersion := "2.10.6"
 crossScalaVersions := Seq("2.10.6", "2.11.7")
 
 scalacOptions ++= Seq(

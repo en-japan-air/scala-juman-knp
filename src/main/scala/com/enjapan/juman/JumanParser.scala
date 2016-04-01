@@ -15,14 +15,14 @@ object JumanParser {
 
   val splitOutsideQuotesReges = """[^\s"]+|"([^"]*)"""".r
 
-  def parseMorpheme(spec:String): Xor[ParseException, Morpheme] = {
+  def parseMorpheme(spec: String): Xor[ParseException, Morpheme] = {
     splitOutsideQuotesReges.findAllMatchIn(spec).map { m =>
       m.group(0) match {
         case null => m.source.toString
         case x => x
       }
     }.toList match {
-      case midasi::yomi::genkei::hinsi::hinsiId::bunrui::bunruiId::katuyou1::katuyou1Id::katuyou2::katuyou2Id::imis::fstring::_ =>
+      case midasi :: yomi :: genkei :: hinsi :: hinsiId :: bunrui :: bunruiId :: katuyou1 :: katuyou1Id :: katuyou2 :: katuyou2Id :: imis :: fstring :: _ =>
         Xor.right(Morpheme(
           midasi,
           yomi,
